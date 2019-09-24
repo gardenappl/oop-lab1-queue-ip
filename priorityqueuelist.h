@@ -3,15 +3,17 @@
 
 #include "priorityqueue.h"
 #include <iostream>
+#include <exception>
 
 template<typename T>
-struct node
+struct priority_node
 {
-	node* next;
+	priority_node* next;
+	int priority;
 	T value;
 
-	node(T value, node* next = nullptr)
-	: value(value), next(next)
+	priority_node(T value, int priority, priority_node* next = nullptr)
+	: value(value), priority(priority), next(next)
 	{}
 
 };
@@ -20,11 +22,11 @@ template<typename T>
 struct priority_queue_list : priority_queue<T>{
 
 private:
-	node<T>* root = nullptr;
+	priority_node<T>* root = nullptr;
 
 public:
 	~priority_queue_list();
-	void add(T element);
+	void add(T element, int priority);
 	T pop();
 	T* peek();
 
@@ -34,29 +36,29 @@ private:
 
 template<typename T>
 priority_queue_list<T>::~priority_queue_list() {
-	node<T>* current = root;
+	priority_node<T>* current = root;
 
 	while(current) {
-		node<T>* node_to_remove = current;
+		priority_node<T>* node_to_remove = current;
 		current = current->next;
 		delete node_to_remove;
 	}
 }
 
 template<typename T>
-void priority_queue_list<T>::add(T element) {
-	node<T>** current = &root;
+void priority_queue_list<T>::add(T element, int priority) {
+	priority_node<T>** current = &root;
 
 	while(*current) {
-		if(element > (*current)->value) {
-			*current = new node<T>(element, *current);
+		if(priority > (*current)->priority) {
+			*current = new priority_node<T>(element, priority, *current);
 			return;
 		} else {
 			current = &(*current)->next;
 		}
 	}
 
-	*current = new node<T>(element, *current);
+	*current = new priority_node<T>(element, priority, *current);
 }
 
 template<typename T>
@@ -66,7 +68,7 @@ T priority_queue_list<T>::pop() {
 
 	T element = root->value;
 
-	node<T>* node_to_remove = root;
+	priority_node<T>* node_to_remove = root;
 	root = root->next;
 	delete node_to_remove;
 
@@ -89,7 +91,7 @@ void priority_queue_list<T>::print(std::ostream& os) const {
 
 	os << "{ " << root->value;
 
-	node<T>* current = root->next;
+	priority_node<T>* current = root->next;
 
 	while(current) {
 		os << ", " << current->value;

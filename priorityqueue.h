@@ -9,7 +9,7 @@ struct priority_queue {
 public:
 	virtual ~priority_queue() {}
 
-	virtual void add(T element) = 0;
+	virtual void add(T element, int priority) = 0;
 	virtual T pop() = 0;
 	virtual T* peek() = 0;
 

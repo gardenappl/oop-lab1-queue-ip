@@ -4,11 +4,11 @@
 int main(int argc, char **argv) {
 	priority_queue<int>* test_list = new priority_queue_list<int>();
 
-	test_list->add(5);
-	test_list->add(2);
-	test_list->add(7);
-	test_list->add(9);
-	test_list->add(-2);
+	test_list->add(5, 5);
+	test_list->add(2, 2);
+	test_list->add(7, 7);
+	test_list->add(9, 9);
+	test_list->add(-2, 999);
 
 	std::cout << *test_list << std::endl;
 
