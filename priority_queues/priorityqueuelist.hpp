@@ -1,38 +1,4 @@
-#ifndef PRIORITYQUEUELIST_H_
-#define PRIORITYQUEUELIST_H_
-
-#include "priorityqueue.h"
-#include <iostream>
-#include <exception>
-
-template<typename T>
-struct priority_node
-{
-	priority_node* next;
-	int priority;
-	T value;
-
-	priority_node(T value, int priority, priority_node* next = nullptr)
-	: value(value), priority(priority), next(next)
-	{}
-
-};
-
-template<typename T>
-struct priority_queue_list : priority_queue<T>{
-
-private:
-	priority_node<T>* root = nullptr;
-
-public:
-	~priority_queue_list();
-	void add(T element, int priority);
-	T pop();
-	T* peek();
-
-private:
-	void print(std::ostream& os) const;
-};
+#pragma once
 
 template<typename T>
 priority_queue_list<T>::~priority_queue_list() {
@@ -85,7 +51,7 @@ T* priority_queue_list<T>::peek() {
 template<typename T>
 void priority_queue_list<T>::print(std::ostream& os) const {
 	if(!root) {
-		os << "<empty list>";
+		os << "<empty>";
 		return;
 	}
 
@@ -99,5 +65,3 @@ void priority_queue_list<T>::print(std::ostream& os) const {
 	}
 	os << " }";
 }
-
-#endif /* PRIORITYQUEUELIST_H_ */

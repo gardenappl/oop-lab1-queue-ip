@@ -1,5 +1,5 @@
-#ifndef PRIORITYQUEUE_H_
-#define PRIORITYQUEUE_H_
+#ifndef PRIORITY_QUEUES_PRIORITYQUEUE_H_
+#define PRIORITY_QUEUES_PRIORITYQUEUE_H_
 
 #include <iostream>
 
@@ -21,4 +21,4 @@ private:
 	}
 };
 
-#endif /* PRIORITYQUEUE_H_ */
+#endif /* PRIORITY_QUEUES_PRIORITYQUEUE_H_ */
