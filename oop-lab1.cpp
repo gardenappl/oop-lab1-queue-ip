@@ -1,6 +1,7 @@
 #include <iostream>
-#include "priority_queues/priorityqueuelist.h"
-#include "priority_queues/priorityqueuearray.h"
+
+#include "priority_queues/priority_queue_array.h"
+#include "priority_queues/priority_queue_list.h"
 
 int main(int argc, char **argv) {
 	std::cout << "Hello" << std::endl;

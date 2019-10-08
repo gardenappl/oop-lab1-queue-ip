@@ -2,8 +2,8 @@
 
 #include <vector>
 #include "../algorithms.h"
-#include "priorityqueue.h"
 #include "../sorted_vector.h"
+#include "priority_queue.h"
 
 template<typename T>
 class priority_queue_array : public priority_queue<T>
@@ -22,4 +22,4 @@ public:
 	void print(std::ostream& os) const;
 };
 
-#include "priorityqueuearray.hpp"
+#include "priority_queue_array.hpp"

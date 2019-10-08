@@ -3,7 +3,7 @@
 #include <iostream>
 #include <exception>
 
-#include "priorityqueue.h"
+#include "priority_queue.h"
 
 template<typename T>
 struct priority_node
@@ -34,4 +34,4 @@ private:
 	void print(std::ostream& os) const;
 };
 
-#include "priorityqueuelist.hpp"
+#include "priority_queue_list.hpp"
