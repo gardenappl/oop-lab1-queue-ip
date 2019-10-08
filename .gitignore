@@ -2,6 +2,10 @@ bin/
 out/
 .vs
 
+.cproject
+.project
+.settings/
+
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
@@ -13,3 +17,4 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _dep
+/build/
