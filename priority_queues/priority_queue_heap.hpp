@@ -49,11 +49,11 @@ void priority_queue_heap<T>::add(T element, int priority)
 		if(index == 0)
 			return;
 
-		int parent_index = get_parent_index(index);
+		size_t parent_index = get_parent_index(index);
 		if(data[parent_index].priority > priority)
 		{
-			std::cout << "Swapping " << data[parent_index].element
-					<< " " << data[index].element << std::endl;
+			//std::cout << "Swapping " << data[parent_index].element
+			//		<< " " << data[index].element << std::endl;
 			std::swap(data[parent_index], data[index]);
 			index = parent_index;
 		}
@@ -71,7 +71,33 @@ const T* priority_queue_heap<T>::peek()
 template<typename T>
 T priority_queue_heap<T>::pop()
 {
-	return data[0].element;
+	if (data.get_size() == 0)
+		throw std::logic_error("Tried to pop empty stack.");
+	T root = data[0].element;
+	//Replace root with the last element in heap
+	data[0] = data[data.get_size() - 1];
+	data.resize(data.get_size() - 1);
+
+	//Compare with children, swap with largest child if needed
+	int current_index = 0;
+	while (true)
+	{
+		size_t left_index = get_left_child_index(current_index);
+		size_t right_index = get_right_child_index(current_index);
+		size_t min_index = current_index;
+		if (left_index < data.get_size() && data[left_index].priority < data[min_index].priority)
+			min_index = left_index;
+		if (right_index < data.get_size() && data[right_index].priority < data[min_index].priority)
+			min_index = right_index;
+
+		if (min_index == current_index)
+			break;
+		else
+		{
+			std::swap(data[min_index], data[current_index]);
+			current_index = min_index;
+		}
+	}
 }
 
 

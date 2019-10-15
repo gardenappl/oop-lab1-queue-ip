@@ -72,3 +72,9 @@ T* vector<T>::get_pointer(std::size_t index) const
 	return data + index;
 }
 
+template<typename T>
+void vector<T>::resize(std::size_t new_size)
+{
+	size = new_size;
+	resize_if_needed();
+}

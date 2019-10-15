@@ -15,7 +15,7 @@ size_t sorted_vector<T>::insert(T&& element)
 {
 	this->size++;
 	this->resize_if_needed();
-	int i = this->size - 1;
+	size_t i = this->size - 1;
 	for (; i > 0; i--)
 	{
 		//sort elements in reverse order

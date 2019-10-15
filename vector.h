@@ -20,6 +20,7 @@ public:
 	virtual ~vector();
 
 	size_t get_size() const;
+	void resize(size_t new_size);
 
 	virtual size_t insert(T&& element);
 	T pop();
