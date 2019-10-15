@@ -2,7 +2,7 @@
 
 template<typename T>
 priority_queue_array<T>::priority_queue_array()
-	: vector(sorted_vector<element_with_priority<T>>(priority_comparator<T>))
+	: vector(sorted_vector<element_with_priority<T>>())
 {}
 
 
@@ -30,7 +30,7 @@ void priority_queue_array<T>::print(std::ostream& os) const
 }
 
 template<typename T>
-T* priority_queue_array<T>::peek()
+const T* priority_queue_array<T>::peek()
 {
 	return &(vector.get_pointer(vector.get_size() - 1)->element);
 }

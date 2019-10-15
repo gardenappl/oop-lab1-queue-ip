@@ -2,6 +2,7 @@
 
 #include "priority_queues/priority_queue_array.h"
 #include "priority_queues/priority_queue_list.h"
+#include "priority_queues/priority_queue_heap.h"
 
 int main(int argc, char **argv) {
 	std::cout << "Hello" << std::endl;
@@ -19,7 +20,7 @@ int main(int argc, char **argv) {
 		std::cout << vector[i] << ", ";
 	}
 
-	priority_queue<int>* test_list = new priority_queue_array<int>();
+	priority_queue<int>* test_list = new priority_queue_heap<int>();
 
 
 	test_list->add(5, 5);
@@ -30,7 +31,7 @@ int main(int argc, char **argv) {
 
 	std::cout << *test_list << std::endl;
 
-	std::cout << "Pop: " << test_list->pop() << std::endl;
+//	std::cout << "Pop: " << test_list->pop() << std::endl;
 	std::cout << "Peek: " << *test_list->peek() << std::endl;
 
 	std::cout << *test_list << std::endl;

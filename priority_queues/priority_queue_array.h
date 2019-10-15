@@ -18,7 +18,7 @@ public:
 	~priority_queue_array() = default;
 	void add(T element, int priority);
 	T pop();
-	T* peek();
+	const T* peek();
 	void print(std::ostream& os) const;
 };
 

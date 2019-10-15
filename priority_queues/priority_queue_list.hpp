@@ -42,7 +42,7 @@ T priority_queue_list<T>::pop() {
 }
 
 template<typename T>
-T* priority_queue_list<T>::peek() {
+const T* priority_queue_list<T>::peek() {
 	if(!root)
 		throw new std::out_of_range("tried to peek into empty stack");
 	return &root->value;

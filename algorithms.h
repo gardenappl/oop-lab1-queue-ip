@@ -27,9 +27,8 @@ struct element_with_priority
 };
 
 template<typename T>
-comparator<element_with_priority<T>> priority_comparator =
-		[](const element_with_priority<T> & element1,
-		const element_with_priority<T> & element2) -> bool
+bool operator<(const element_with_priority<T>& element1,
+		const element_with_priority<T>& element2)
 {
 	return element1.priority < element2.priority;
-};
+}

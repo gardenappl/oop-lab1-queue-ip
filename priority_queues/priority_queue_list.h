@@ -19,7 +19,7 @@ struct priority_node
 };
 
 template<typename T>
-struct priority_queue_list : priority_queue<T>{
+struct priority_queue_list : public priority_queue<T>{
 
 private:
 	priority_node<T>* root = nullptr;
@@ -28,7 +28,7 @@ public:
 	~priority_queue_list();
 	void add(T element, int priority);
 	T pop();
-	T* peek();
+	const T* peek();
 
 private:
 	void print(std::ostream& os) const;

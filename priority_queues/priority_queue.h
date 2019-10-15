@@ -11,7 +11,7 @@ public:
 
 	virtual void add(T element, int priority) = 0;
 	virtual T pop() = 0;
-	virtual T* peek() = 0;
+	virtual const T* peek() = 0;
 
 private:
 	virtual void print(std::ostream& os) const = 0;
