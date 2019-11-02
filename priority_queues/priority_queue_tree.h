@@ -15,8 +15,6 @@ struct tree_node
     explicit tree_node(const T& value)
         : value(value)
     {}
-
-    ~tree_node();
 };
 
 template<typename T>
@@ -34,6 +32,7 @@ public:
     const T& peek() const override;
 
 private:
+    void remove(tree_node<T>* node);
     void print(std::ostream& os, const tree_node<T>* node, bool& printed_once) const;
     void print(std::ostream& os) const override;
 };

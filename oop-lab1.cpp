@@ -13,7 +13,7 @@
 int main(int argc, char **argv) {
 	std::cout << "Hello" << std::endl;
 
-	priority_queue<int>* test_list = new priority_queue_tree<int>();
+	priority_queue<int>* test_list = new priority_queue_heap<int>();
 
 
 	test_list->add(9);

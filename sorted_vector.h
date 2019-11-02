@@ -11,8 +11,8 @@ private:
 	comparator<T> sort_comparator;
 
 public:
-	sorted_vector();
-	sorted_vector(comparator<T> comparator);
+    sorted_vector();
+    explicit sorted_vector(comparator<T> comparator);
 
 	size_t insert(const T& element);
 

@@ -17,7 +17,7 @@ size_t sorted_vector<T>::insert(const T& element)
 	size_t i = data_vector.get_size() - 1;
 	for (; i > 0; i--)
 	{
-		if(this->sort_comparator(this->data_vector[i - 1], element))
+		if(this->sort_comparator(element, this->data_vector[i - 1]))
 		{
 //			std::cout << data[i - 1] << " is smaller than " << element << std::endl;
 			this->data_vector[i] = this->data_vector[i - 1];

@@ -5,10 +5,13 @@
 #include <stdexcept>
 
 template<typename T>
-tree_node<T>::~tree_node()
+void priority_queue_tree<T>::remove(tree_node<T> *node)
 {
-    delete left;
-    delete right;
+    if(node->left)
+        remove(node->left);
+    if(node->right)
+        remove(node->right);
+    delete node;
 }
 
 
@@ -20,7 +23,7 @@ priority_queue_tree<T>::priority_queue_tree(comparator<T>& sort_comparator)
 template<typename T>
 priority_queue_tree<T>::~priority_queue_tree()
 {
-    delete root;
+    remove(root);
 }
 
 template<typename T>
@@ -43,25 +46,24 @@ T priority_queue_tree<T>::pop()
 {
     if(!root)
         throw std::out_of_range("Tried to pop empty stack.");
-    tree_node<T>** min_node = &root;
-    while((*min_node)->left)
-        min_node = &(*min_node)->left;
+    tree_node<T>** max_node = &root;
+    while((*max_node)->right)
+        max_node = &(*max_node)->right;
 
-    T value = (*min_node)->value;
+    T value = (*max_node)->value;
 
-    //only has right child
-    if((*min_node)->right)
+    //only has left child
+    if((*max_node)->left)
     {
-        tree_node<T>* delete_node = *min_node;
-        min_node = &(*min_node)->right;
+        tree_node<T>* delete_node = *max_node;
+        *max_node = (*max_node)->left;
         delete delete_node;
     }
     //no children
     else
     {
-        //std::cout << "Deleting " << *min_node << " " << (*min_node)->value << " " << std::endl;
-        tree_node<T>* delete_node = *min_node;
-        *min_node = nullptr;
+        tree_node<T>* delete_node = *max_node;
+        *max_node = nullptr;
         delete delete_node;
     }
 
@@ -73,28 +75,27 @@ const T& priority_queue_tree<T>::peek() const
 {
     if(!root)
         throw std::out_of_range("Tried to peek into empty stack");
-    tree_node<T>* min_node = root;
-    while(min_node->left)
-        min_node = min_node->left;
-    return min_node->value;
+    tree_node<T>* max_node = root;
+    while(max_node->right)
+        max_node = max_node->right;
+    return max_node->value;
 }
 
 template<typename T>
 void priority_queue_tree<T>::print(std::ostream& os, const tree_node<T>* node, bool& printed_once) const
 {
-    //std::cout << "Printing " << node << " " << node->value << " " << std::endl;
-    if(node->left)
+    if(node->right)
     {
-        print(os, node->left, printed_once);
+        print(os, node->right, printed_once);
         printed_once = true;
     }
     if(printed_once)
         os << ", ";
     os << node->value;
     printed_once = true;
-    if(node->right)
+    if(node->left)
     {
-        print(os, node->right, printed_once);
+        print(os, node->left, printed_once);
     }
 }
 

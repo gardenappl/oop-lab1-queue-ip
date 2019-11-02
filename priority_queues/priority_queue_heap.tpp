@@ -53,7 +53,7 @@ void priority_queue_heap<T>::add(const T& element)
 			return;
 
 		size_t parent_index = get_parent_index(index);
-		if(this->sort_comparator(element, data[parent_index]))
+		if(this->sort_comparator(data[parent_index], element))
 		{
 			//std::cout << "Swapping " << data[parent_index].element
 			//		<< " " << data[index].element << std::endl;
@@ -87,18 +87,18 @@ T priority_queue_heap<T>::pop()
 	{
 		size_t left_index = get_left_child_index(current_index);
 		size_t right_index = get_right_child_index(current_index);
-		size_t min_index = current_index;
-		if (left_index < data.get_size() && this->sort_comparator(data[left_index], data[min_index]))
-			min_index = left_index;
-		if (right_index < data.get_size() && this->sort_comparator(data[right_index], data[min_index]))
-			min_index = right_index;
+		size_t max_index = current_index;
+		if (left_index < data.get_size() && this->sort_comparator(data[max_index], data[left_index]))
+            max_index = left_index;
+		if (right_index < data.get_size() && this->sort_comparator(data[max_index], data[right_index]))
+            max_index = right_index;
 
-		if (min_index == current_index)
+		if (max_index == current_index)
 			break;
 		else
 		{
-			std::swap(data[min_index], data[current_index]);
-			current_index = min_index;
+			std::swap(data[max_index], data[current_index]);
+			current_index = max_index;
 		}
 	}
 	return root;

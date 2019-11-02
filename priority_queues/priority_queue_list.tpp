@@ -21,7 +21,7 @@ void priority_queue_list<T>::add(const T& element) {
 	list_node<T>** current = &root;
 
 	while(*current) {
-		if(this->sort_comparator(element, (*current)->value)) {
+		if(this->sort_comparator((*current)->value, element)) {
 			*current = new list_node<T>(element, *current);
 			return;
 		} else {
