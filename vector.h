@@ -29,7 +29,7 @@ public:
 	T* get_pointer(std::size_t index) const;
 };
 
-#include "vector.hpp"
+#include "vector.tpp"
 
 
 #endif /* VECTOR_H_ */
