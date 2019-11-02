@@ -11,18 +11,17 @@ sorted_vector<T>::sorted_vector(comparator<T> comparator)
 {}
 
 template<typename T>
-size_t sorted_vector<T>::insert(T&& element)
+size_t sorted_vector<T>::insert(const T& element)
 {
-	this->size++;
-	this->resize_if_needed();
-	size_t i = this->size - 1;
+    data_vector.push_back(element);
+	size_t i = data_vector.get_size() - 1;
 	for (; i > 0; i--)
 	{
 		//sort elements in reverse order
-		if(!this->sort_comparator(this->data[i - 1], element))
+		if(!this->sort_comparator(this->data_vector[i - 1], element))
 		{
-//			std::cout << data[i - 1] << " is bigger than " << element << std::endl;
-			this->data[i] = this->data[i - 1];
+//			std::cout << data[i - 1] << " is smaller than " << element << std::endl;
+			this->data_vector[i] = this->data_vector[i - 1];
 		}
 		else
 		{
@@ -30,30 +29,37 @@ size_t sorted_vector<T>::insert(T&& element)
 		}
 	}
 //	std::cout << "Inserting " << element << " at " << i << std::endl;
-	this->data[i] = element;
+	this->data_vector[i] = element;
 	return i;
 }
 
 template<typename T>
 size_t sorted_vector<T>::get_size() const
 {
-	return vector<T>::get_size();
+	return data_vector.get_size();
 }
 
 template<typename T>
 T sorted_vector<T>::pop()
 {
-	return vector<T>::pop();
+	return data_vector.pop_back();
 }
 
 template<typename T>
 const T* sorted_vector<T>::get_pointer(size_t index) const
 {
-	return vector<T>::get_pointer(index);
+	return data_vector.get_pointer(index);
 }
 
 template<typename T>
 const T& sorted_vector<T>::operator[](size_t index) const
 {
-	return vector<T>::operator[](index);
+	return data_vector[index];
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, sorted_vector<T> vec)
+{
+    os << vec.data_vector;
+    return os;
 }

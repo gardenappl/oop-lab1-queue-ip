@@ -41,7 +41,7 @@ template<typename T>
 void priority_queue_heap<T>::add(T element, int priority)
 {
 	//Add the element to the bottom level of the heap at the most left.
-	size_t index = data.insert(element_with_priority<T>(element, priority));
+	size_t index = data.push_back(element_with_priority<T>(element, priority));
 
 	while(true)
 	{

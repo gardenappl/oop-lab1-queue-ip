@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdexcept>
 
 
 template<typename T>
@@ -43,7 +44,7 @@ size_t vector<T>::get_size() const
 }
 
 template<typename T>
-size_t vector<T>::insert(T&& element)
+size_t vector<T>::push_back(const T& element)
 {
 	size++;
 	resize_if_needed();
@@ -52,7 +53,7 @@ size_t vector<T>::insert(T&& element)
 }
 
 template<typename T>
-T vector<T>::pop()
+T vector<T>::pop_back()
 {
 	T element = data[size - 1];
 	size--;
@@ -63,6 +64,8 @@ T vector<T>::pop()
 template<typename T>
 T& vector<T>::operator [](std::size_t index) const
 {
+    if(index >= size)
+        throw std::out_of_range("Index out of range");
 	return data[index];
 }
 
@@ -77,4 +80,21 @@ void vector<T>::resize(std::size_t new_size)
 {
 	size = new_size;
 	resize_if_needed();
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, vector<T> vec)
+{
+    if(vec.get_size() == 0) {
+        os << "<empty>";
+        return os;
+    }
+
+    os << "{ " << vec[0].element;
+
+    for(int i = 1; i < vec.get_size(); i++) {
+        os << ", " << vec[i].element;
+    }
+    os << " }";
+    return os;
 }
