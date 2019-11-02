@@ -23,7 +23,9 @@ private:
     tree_node<T>* root;
 
 public:
-    priority_queue_tree() = default;
+    /*!
+     * \copydoc priority_queue::priority_queue(comparator<T>&)
+     */
     explicit priority_queue_tree(comparator<T>& comparator);
     ~priority_queue_tree();
 

@@ -7,7 +7,7 @@
 #include <algorithm>
 
 /*!
- * A priority queue implemented using a max-heap.
+ * A priority queue implemented using a min-heap.
  * @sa priority_queue
  */
 template<typename T>
@@ -17,12 +17,23 @@ private:
 	vector<T> data;
 
 public:
-    priority_queue_heap() = default;
+    /*!
+     * \copydoc priority_queue::priority_queue(comparator<T>&)
+     */
     explicit priority_queue_heap(comparator<T>& sort_comparator);
 
+    /*!
+     * \copydoc priority_queue::add(const T& element)
+     */
     void add(const T& element) override;
+    /*!
+     * \copydoc priority_queue::pop()
+     */
 	T pop() override;
-	const T& peek() const;
+    /*!
+     * \copydoc priority_queue::peek()
+     */
+	const T& peek() const override;
 
 private:
 	size_t get_parent_index(size_t index) const;
