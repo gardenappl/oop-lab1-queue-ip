@@ -6,6 +6,7 @@ include_directories("${CMAKE_BINARY_DIR}")
 
 file(GLOB SOURCES
 		"${PROJECT_SOURCE_DIR}/*.cpp"
+		"${PROJECT_SOURCE_DIR}/priority_queues/*.cpp"
 		"${PROJECT_SOURCE_DIR}/ip/*.cpp")
 
 add_executable(oop-lab1 ${SOURCES})

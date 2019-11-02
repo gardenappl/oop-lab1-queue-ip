@@ -6,14 +6,13 @@
 #include "priority_queue.h"
 
 template<typename T>
-struct priority_node
+struct list_node
 {
-	priority_node* next;
-	int priority;
+	list_node* next;
 	T value;
 
-	priority_node(T value, int priority, priority_node* next = nullptr)
-	: value(value), priority(priority), next(next)
+	list_node(T value, list_node* next = nullptr)
+	: value(value), next(next)
 	{}
 
 };
@@ -22,16 +21,19 @@ template<typename T>
 struct priority_queue_list : public priority_queue<T>{
 
 private:
-	priority_node<T>* root = nullptr;
+	list_node<T>* root = nullptr;
 
 public:
+    priority_queue_list() = default;
+    explicit priority_queue_list(comparator<T>& comparator);
+
 	~priority_queue_list();
-	void add(T element, int priority);
-	T pop();
-	const T* peek();
+	void add(const T& element) override;
+	T pop() override;
+	const T& peek() const override;
 
 private:
-	void print(std::ostream& os) const;
+	void print(std::ostream& os) const override;
 };
 
-#include "priority_queue_list.hpp"
+#include "priority_queue_list.tpp"

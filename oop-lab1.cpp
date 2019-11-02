@@ -3,6 +3,7 @@
 #include "priority_queues/priority_queue_array.h"
 #include "priority_queues/priority_queue_list.h"
 #include "priority_queues/priority_queue_heap.h"
+#include "priority_queues/priority_queue_tree.h"
 
 #include "ip/ipv4_address.h"
 #include "ip/ipv6_address.h"
@@ -11,35 +12,22 @@
 
 int main(int argc, char **argv) {
 	std::cout << "Hello" << std::endl;
-	sorted_vector<int> vector;
 
-	vector.insert(99);
-	vector.insert(5);
-	vector.insert(999);
-	vector.insert(3);
-	vector.insert(1);
-	vector.insert(7);
-
-	for(std::size_t i = 0; i < vector.get_size(); i++)
-	{
-		std::cout << vector[i] << ", ";
-	}
-
-	priority_queue<int>* test_list = new priority_queue_array<int>();
+	priority_queue<int>* test_list = new priority_queue_tree<int>();
 
 
-	test_list->add(9, 9);
-	test_list->add(5, 5);
-	test_list->add(2, 2);
-	test_list->add(7, 7);
-	test_list->add(-2, 999);
+	test_list->add(9);
+	test_list->add(5);
+	test_list->add(2);
+	test_list->add(7);
+	test_list->add(-2);
 
 	std::cout << *test_list << std::endl;
 
-//	std::cout << "Pop: " << test_list->pop() << std::endl;
-	std::cout << "Peek: " << *test_list->peek() << std::endl;
+    std::cout << "Pop: " << test_list->pop() << std::endl;
+    std::cout << *test_list << std::endl;
 
-	std::cout << *test_list << std::endl;
+	std::cout << "Peek: " << test_list->peek() << std::endl;
 
 	delete test_list;
 
@@ -79,10 +67,10 @@ int main(int argc, char **argv) {
 	std::cout << *address2 << std::endl;
 	delete address2;
 
-	priority_queue_heap<ipv4_address> ip_queue;
-	ip_queue.add(ipv4_address(1, 2, 3, 4), 1);
-	ip_queue.add(ipv4_address(4, 3, 2, 1), 2);
-	ip_queue.add(ipv4_address(9, 9, 9, 9), 3);
+	priority_queue_heap<element_with_priority<ipv4_address>> ip_queue;
+	ip_queue.add(element_with_priority<ipv4_address>(ipv4_address(1, 2, 3, 4), 1));
+	ip_queue.add(element_with_priority<ipv4_address>(ipv4_address(4, 3, 2, 1), 3));
+	ip_queue.add(element_with_priority<ipv4_address>(ipv4_address(9, 9, 9, 9), 2));
 
 	std::cout << ip_queue << std::endl;
 	ip_queue.pop();

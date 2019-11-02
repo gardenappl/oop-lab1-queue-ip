@@ -1,7 +1,10 @@
 #ifndef PRIORITY_QUEUES_PRIORITY_QUEUE_HEAP_HPP_
 #define PRIORITY_QUEUES_PRIORITY_QUEUE_HEAP_HPP_
 
-
+template<typename T>
+priority_queue_heap<T>::priority_queue_heap(comparator<T>& sort_comparator)
+    : priority_queue<T>(sort_comparator), data()
+{}
 
 template<typename T>
 size_t priority_queue_heap<T>::get_parent_index(size_t index) const
@@ -29,19 +32,19 @@ void priority_queue_heap<T>::print(std::ostream& os) const
 		return;
 	}
 
-	os << "{ " << data[0].element;
+	os << "{ " << data[0];
 
 	for(int i = 1; i < data.get_size(); i++) {
-		os << ", " << data[i].element;
+		os << ", " << data[i];
 	}
 	os << " }";
 }
 
 template<typename T>
-void priority_queue_heap<T>::add(T element, int priority)
+void priority_queue_heap<T>::add(const T& element)
 {
 	//Add the element to the bottom level of the heap at the most left.
-	size_t index = data.push_back(element_with_priority<T>(element, priority));
+	size_t index = data.push_back(element);
 
 	while(true)
 	{
@@ -50,7 +53,7 @@ void priority_queue_heap<T>::add(T element, int priority)
 			return;
 
 		size_t parent_index = get_parent_index(index);
-		if(data[parent_index].priority > priority)
+		if(this->sort_comparator(element, data[parent_index]))
 		{
 			//std::cout << "Swapping " << data[parent_index].element
 			//		<< " " << data[index].element << std::endl;
@@ -63,9 +66,9 @@ void priority_queue_heap<T>::add(T element, int priority)
 }
 
 template<typename T>
-const T* priority_queue_heap<T>::peek()
+const T& priority_queue_heap<T>::peek() const
 {
-	return &(data[0].element);
+	return data[0];
 }
 
 template<typename T>
@@ -73,7 +76,7 @@ T priority_queue_heap<T>::pop()
 {
 	if (data.get_size() == 0)
 		throw std::logic_error("Tried to pop empty stack.");
-	T root = data[0].element;
+	T root = data[0];
 	//Replace root with the last element in heap
 	data[0] = data[data.get_size() - 1];
 	data.resize(data.get_size() - 1);
@@ -85,9 +88,9 @@ T priority_queue_heap<T>::pop()
 		size_t left_index = get_left_child_index(current_index);
 		size_t right_index = get_right_child_index(current_index);
 		size_t min_index = current_index;
-		if (left_index < data.get_size() && data[left_index].priority < data[min_index].priority)
+		if (left_index < data.get_size() && this->sort_comparator(data[left_index], data[min_index]))
 			min_index = left_index;
-		if (right_index < data.get_size() && data[right_index].priority < data[min_index].priority)
+		if (right_index < data.get_size() && this->sort_comparator(data[right_index], data[min_index]))
 			min_index = right_index;
 
 		if (min_index == current_index)

@@ -12,7 +12,7 @@ vector<T>::~vector()
 template<typename T>
 void vector<T>::resize_and_copy(int new_capacity)
 {
-	std::cout << "(changing from " << capacity << " to " << new_capacity << ')' << std::endl;
+	//std::cout << "(changing from " << capacity << " to " << new_capacity << ')' << std::endl;
 
 	T* new_array = new T[new_capacity];
 	std::copy(data, data + size, new_array);
@@ -55,6 +55,8 @@ size_t vector<T>::push_back(const T& element)
 template<typename T>
 T vector<T>::pop_back()
 {
+    if(size == 0)
+        throw std::out_of_range("Tried to pop_back empty vector");
 	T element = data[size - 1];
 	size--;
 	resize_if_needed();
@@ -72,6 +74,8 @@ T& vector<T>::operator [](std::size_t index) const
 template<typename T>
 T* vector<T>::get_pointer(std::size_t index) const
 {
+    if(index >= size)
+        throw std::out_of_range("Index out of range");
 	return data + index;
 }
 

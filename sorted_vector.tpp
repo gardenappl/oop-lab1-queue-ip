@@ -17,8 +17,7 @@ size_t sorted_vector<T>::insert(const T& element)
 	size_t i = data_vector.get_size() - 1;
 	for (; i > 0; i--)
 	{
-		//sort elements in reverse order
-		if(!this->sort_comparator(this->data_vector[i - 1], element))
+		if(this->sort_comparator(this->data_vector[i - 1], element))
 		{
 //			std::cout << data[i - 1] << " is smaller than " << element << std::endl;
 			this->data_vector[i] = this->data_vector[i - 1];
@@ -46,20 +45,7 @@ T sorted_vector<T>::pop()
 }
 
 template<typename T>
-const T* sorted_vector<T>::get_pointer(size_t index) const
-{
-	return data_vector.get_pointer(index);
-}
-
-template<typename T>
 const T& sorted_vector<T>::operator[](size_t index) const
 {
 	return data_vector[index];
-}
-
-template<typename T>
-std::ostream& operator<<(std::ostream& os, sorted_vector<T> vec)
-{
-    os << vec.data_vector;
-    return os;
 }

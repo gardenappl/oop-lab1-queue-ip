@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <iostream>
 
 template<typename T>
 using comparator = std::function<bool(const T&, const T&)>;
@@ -21,7 +22,7 @@ struct element_with_priority
 		: priority(0)
 	{}
 
-	element_with_priority(T& element, int priority)
+	element_with_priority(const T& element, int priority)
 		: element(element), priority(priority)
 	{}
 };
@@ -31,4 +32,11 @@ bool operator<(const element_with_priority<T>& element1,
 		const element_with_priority<T>& element2)
 {
 	return element1.priority < element2.priority;
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const element_with_priority<T> element)
+{
+    os << "( " << element.element << ", priority: " << element.priority << " )";
+    return os;
 }
