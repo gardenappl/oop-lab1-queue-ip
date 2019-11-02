@@ -1,5 +1,3 @@
-#pragma once
-
 #include "ip_factory.h"
 #include "ipv4_address.h"
 #include "ipv6_address.h"
@@ -18,7 +16,7 @@ ip_address* ip_factory::parse_address(const std::string& str, std::stringstream&
 		{
 			unsigned int temp; //I can't read into uint8_t because that gets interpreted as char
 			str_stream >> temp;
-			if (temp > (unsigned int)std::numeric_limits<uint8_t>::max)
+			if (temp > std::numeric_limits<uint8_t>::max())
 				throw std::invalid_argument("Value can't be more than 255.");
 			address->data[i] = temp;
 

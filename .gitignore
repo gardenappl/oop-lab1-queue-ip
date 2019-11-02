@@ -1,11 +1,13 @@
 bin/
 out/
 .vs
+.idea
 
 .cproject
 .project
 .settings/
 
+CMakeSettings.json
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles

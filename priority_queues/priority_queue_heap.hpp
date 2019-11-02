@@ -98,6 +98,7 @@ T priority_queue_heap<T>::pop()
 			current_index = min_index;
 		}
 	}
+	return root;
 }
 
 
