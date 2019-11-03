@@ -72,21 +72,6 @@ T& vector<T>::operator [](std::size_t index) const
 }
 
 template<typename T>
-T* vector<T>::get_pointer(std::size_t index) const
-{
-    if(index >= size)
-        throw std::out_of_range("Index out of range");
-	return data + index;
-}
-
-template<typename T>
-void vector<T>::resize(std::size_t new_size)
-{
-	size = new_size;
-	resize_if_needed();
-}
-
-template<typename T>
 std::ostream& operator<<(std::ostream& os, vector<T> vec)
 {
     if(vec.get_size() == 0) {

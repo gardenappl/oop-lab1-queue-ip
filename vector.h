@@ -19,14 +19,32 @@ private:
 public:
 	virtual ~vector();
 
+	/*!
+	 * Get the size of the current vector.
+	 * Note that this only returns the amount of elements stored, not the total capacity of the underlying array,
+	 * which might be larger than the returned value.
+	 * @return number of elements in the vector
+	 */
 	size_t get_size() const;
-	void resize(size_t new_size);
 
+	/*!
+	 * Inserts an element to the end of the array.
+	 * @param element the element to be inserted
+	 * @return the index of the inserted element
+	 */
 	size_t push_back(const T& element);
+	/*!
+	 * Removes the last element from the array and returns its value.
+	 * @return the removed value
+	 */
 	T pop_back();
 
+	/*!
+	 * Access an element by its index in the array.
+	 * @param index the index
+	 * @return the value associated with the index
+	 */
 	T& operator[](std::size_t index) const;
-	T* get_pointer(std::size_t index) const;
 };
 
 #include "vector.tpp"

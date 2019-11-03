@@ -38,5 +38,5 @@ const T& priority_queue_array<T>::peek() const
 template<typename T>
 T priority_queue_array<T>::pop()
 {
-	return sorted_data.pop();
+	return sorted_data.pop_back();
 }

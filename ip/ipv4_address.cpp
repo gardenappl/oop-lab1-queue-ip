@@ -1,5 +1,3 @@
-#pragma once
-
 #include "ipv4_address.h"
 
 #include <cstdint>
@@ -38,4 +36,16 @@ bool ipv4_address::belongs_to_subnet(const ipv4_address& subnet_address) const
 			return false;
 	}
 	return true;
+}
+
+bool ipv4_address::operator<(const ipv4_address &address2) const
+{
+    for(size_t i = 0; i < 4; i++)
+    {
+        if(data[i] < address2.data[i])
+            return true;
+        else if(data[i] > address2.data[i])
+            return false;
+    }
+    return false;
 }

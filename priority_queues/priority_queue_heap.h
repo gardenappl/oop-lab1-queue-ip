@@ -18,16 +18,22 @@ private:
 
 public:
     /*!
+     * \copydoc priority_queue::priority_queue()
+     */
+    priority_queue_heap() = default;
+    /*!
      * \copydoc priority_queue::priority_queue(comparator<T>&)
      */
     explicit priority_queue_heap(comparator<T>& sort_comparator);
 
     /*!
      * \copydoc priority_queue::add(const T& element)
+     * \details The heap-based implementation of this function operates in O(log n) time.
      */
     void add(const T& element) override;
     /*!
      * \copydoc priority_queue::pop()
+     * \details The heap-based implementation of this function operates in O(log n) time.
      */
 	T pop() override;
     /*!

@@ -6,7 +6,7 @@
 
 /*!
  * A priority queue is a container adaptor that provides constant time lookup of the largest
- * (by default) element, at the expense of logarithmic insertion and extraction.
+ * (by default) element, at the expense of slower insertion and/or extraction.
  * \tparam T type of the stored elements
  */
 template<typename T>
@@ -39,7 +39,7 @@ public:
      */
 	virtual T pop() = 0;
     /*!
-     * Return a reference to the highest-priority element.
+     * Return a reference to the highest-priority element. This is an O(1) operation.
      * Keep in mind that the reference might be invalidated after modifying the queue.
      * \return the element with the highest priority value
      */

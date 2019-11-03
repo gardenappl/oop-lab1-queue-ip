@@ -7,7 +7,8 @@
 
 /*!
  * A priority queue implementation using a resizeable array.
- * \sa array
+ * \sa vector
+ * \sa sorted_vector
  * \tparam T type of the stored elements
  */
 template<typename T>
@@ -19,6 +20,10 @@ class priority_queue_array : public priority_queue<T>
 
 public:
     /*!
+     * \copydoc priority_queue::priority_queue()
+     */
+    priority_queue_array() = default;
+    /*!
      * \copydoc priority_queue::priority_queue(comparator<T>&)
      */
 	explicit priority_queue_array(comparator<T>& comparator);
@@ -26,10 +31,13 @@ public:
 	~priority_queue_array() = default;
     /*!
      * \copydoc priority_queue::add(const T& element)
+     * \details The array-based implementation of this function works in O(1) time,
+     * unless the container needs to be resized, which is an O(n) operation.
      */
 	void add(const T& element) override;
     /*!
      * \copydoc priority_queue::pop()
+     * \details The array-based implementation of this function works in O(1) time.
      */
 	T pop() override;
     /*!

@@ -39,7 +39,7 @@ size_t sorted_vector<T>::get_size() const
 }
 
 template<typename T>
-T sorted_vector<T>::pop()
+T sorted_vector<T>::pop_back()
 {
 	return data_vector.pop_back();
 }

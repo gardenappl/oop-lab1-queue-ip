@@ -17,6 +17,11 @@ struct list_node
 
 };
 
+/*!
+ * A priority queue implementation using a linked list.
+ * \sa array
+ * \tparam T type of the stored elements
+ */
 template<typename T>
 struct priority_queue_list : public priority_queue<T>{
 
@@ -25,6 +30,10 @@ private:
 
 public:
     /*!
+     * \copydoc priority_queue::priority_queue()
+     */
+    priority_queue_list() = default;
+    /*!
      * \copydoc priority_queue::priority_queue(comparator<T>&)
      */
     explicit priority_queue_list(comparator<T>& comparator);
@@ -32,10 +41,12 @@ public:
 
     /*!
      * \copydoc priority_queue::add(const T& element)
+     * \details The linked-list-based implementation of this function operates in O(n) time.
      */
 	void add(const T& element) override;
     /*!
      * \copydoc priority_queue:pop()
+     * \details The linked-list-based implementation of this function operates in O(1) time.
      */
 	T pop() override;
     /*!

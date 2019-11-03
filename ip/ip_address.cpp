@@ -1,5 +1,3 @@
-#pragma once
-
 #include "ip_address.h"
 
 

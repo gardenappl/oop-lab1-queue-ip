@@ -1,25 +1,57 @@
-#pragma once
-
 #include "ipv6_address.h"
 
 #include <cstdint>
 #include <iostream>
+#include <limits>
 
 
 ipv6_address::ipv6_address(uint16_t data[8])
 {
-	for (int i = 0; i < 8; i++)
+	for (size_t i = 0; i < 8; i++)
 		this->data[i] = data[i];
 }
 
 void ipv6_address::print(std::ostream& os) const
 {
-	os << std::hex << data[0];
-	for (int i = 1; i < 8; i++)
-		os << ':' << data[i];
+    std::ios_base::fmtflags prev_flags = os.flags();
+
+    //Find largest sequence of zeroes to shorten.
+    //If sequence has length 1, ignore
+    //If there are multiple largest sequences, pick leftmost one.
+    int longest_zero_sequence = std::numeric_limits<int>::max();
+    int longest_zero_sequence_length = 0;
+    int current_zero_sequence_length = 0;
+    for(int i = 0; i < 8; i++)
+    {
+        if(data[i] == 0)
+        {
+            current_zero_sequence_length++;
+        }
+        else if(current_zero_sequence_length > 1)
+        {
+            if(current_zero_sequence_length > longest_zero_sequence_length)
+                longest_zero_sequence_length = current_zero_sequence_length;
+            longest_zero_sequence = i - current_zero_sequence_length;
+            current_zero_sequence_length = 0;
+        }
+    }
+	for (int i = 0; i < 8; i++)
+	{
+	    if(i == longest_zero_sequence)
+	    {
+            os << ':';
+            i = longest_zero_sequence + longest_zero_sequence_length - 1;
+            continue;
+        }
+	    if(i != 0)
+	        os << ':';
+        os << std::hex << data[i];
+    }
 	os << std::dec;
 	if (subnet_bits != -1)
 		os << '/' << (int)subnet_bits;
+
+	os.flags(prev_flags);
 }
 
 bool ipv6_address::belongs_to_subnet(const ipv6_address& subnet_address) const
@@ -38,4 +70,16 @@ bool ipv6_address::belongs_to_subnet(const ipv6_address& subnet_address) const
 			return false;
 	}
 	return true;
+}
+
+bool ipv6_address::operator<(const ipv6_address &address2) const
+{
+    for(size_t i = 0; i < 8; i++)
+    {
+        if(data[i] < address2.data[i])
+            return true;
+        else if(data[i] > address2.data[i])
+            return false;
+    }
+    return false;
 }

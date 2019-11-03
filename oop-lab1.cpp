@@ -8,7 +8,7 @@
 #include "ip/ipv4_address.h"
 #include "ip/ipv6_address.h"
 #include "ip/ip_address.h"
-#include "ip/ip_factory.h"
+#include "ip/address_factory.h"
 
 int main(int argc, char **argv) {
 	std::cout << "Hello" << std::endl;
@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
 	std::cout << address << std::endl;
 	std::cout << std::boolalpha << address.belongs_to_subnet(subnet_address) << std::endl;
 
-	ip_address* address2 = ip_factory::parse_address("4.2.3.1");
+	ip_address* address2 = address_factory::parse_address("4.2.3.1");
 	std::cout << *address2 << std::endl;
 	delete address2;
 
@@ -63,14 +63,24 @@ int main(int argc, char **argv) {
 	ipv6_address address3(data);
 	std::cout << address3 << std::endl;
 
-	address2 = ip_factory::parse_subnetwork_address("f431:0:abcd:1111:ffff:0000:1234:0001/25");
+	address2 = address_factory::parse_subnetwork_address("f431:0:abcd:1111:ffff:0000:1234:0001/25");
 	std::cout << *address2 << std::endl;
 	delete address2;
 
-	priority_queue_heap<element_with_priority<ipv4_address>> ip_queue;
-	ip_queue.add(element_with_priority<ipv4_address>(ipv4_address(1, 2, 3, 4), 1));
-	ip_queue.add(element_with_priority<ipv4_address>(ipv4_address(4, 3, 2, 1), 3));
-	ip_queue.add(element_with_priority<ipv4_address>(ipv4_address(9, 9, 9, 9), 2));
+	priority_queue_heap<ipv4_address> ip_queue;
+	ip_queue.add(ipv4_address(1, 2, 3, 4));
+	ip_queue.add(ipv4_address(4, 3, 2, 1));
+	ip_queue.add(ipv4_address(9, 9, 9, 9));
+
+	uint8_t mac_address_data[6];
+	mac_address_data[0] = 1;
+	mac_address_data[1] = 10;
+	mac_address_data[2] = 255;
+	mac_address_data[3] = 0;
+	mac_address_data[4] = 16;
+	mac_address mac_address1(mac_address_data);
+	std::cout << mac_address1 << std::endl;
+    std::cout << address_factory::local_ipv6_from_mac_auto(mac_address1) << std::endl;
 
 	std::cout << ip_queue << std::endl;
 	ip_queue.pop();
