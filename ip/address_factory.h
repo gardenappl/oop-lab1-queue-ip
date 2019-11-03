@@ -3,6 +3,7 @@
 #include "ip_address.h"
 #include "ipv6_address.h"
 #include "mac_address.h"
+#include "ipv4_address.h"
 #include <string>
 #include <sstream>
 
@@ -12,7 +13,8 @@
 class address_factory
 {
 private:
-	static ip_address* parse_address(const std::string& str, std::stringstream& str_stream);
+	static ipv4_address parse_ipv4_address(std::stringstream& str_stream);
+    static ipv6_address parse_ipv6_address(const std::string& str, std::stringstream& str_stream);
 
 public:
     /*!
@@ -23,18 +25,36 @@ public:
     static ipv6_address local_ipv6_from_mac_auto(const mac_address& mac);
 
     /*!
-     * Parses an IP address from a string.
+     * Parses an IPv4 address from a string.
      * \param str a string in standard notation
-     * \return either an IPv4 address or an IPv6 address.
+     * \return an IPv4 address.
      * \throws std::invalid_exception if the address string is in invalid format
      */
-	static ip_address* parse_address(const std::string& str);
+	static ipv4_address parse_address_as_ipv4(const std::string& str);
 
     /*!
-     * Parses an IP subnetwork range from a string.
-     * \param str a string in CIDR notation
-     * \return either an IPv4 or IPv6 subnetwork address with subnet mask
+     * Parses an IPv6 address from a string. If the string represents an IPv4 address,
+     * performs a conversion.
+     * \param str a string in standard notation
+     * \return an IPv6 address.
      * \throws std::invalid_exception if the address string is in invalid format
      */
-	static ip_address* parse_subnetwork_address(const std::string& str);
+    static ipv6_address parse_address_as_ipv6(const std::string& str);
+
+    /*!
+     * Parses an IPv4 subnetwork range from a string.
+     * \param str a string in CIDR notation
+     * \return an IPv4 subnetwork address with subnet mask
+     * \throws std::invalid_exception if the address string is in invalid format
+     */
+	static ipv4_address parse_subnet_address_as_ipv4(const std::string& str);
+
+    /*!
+     * Parses an IPv6 subnetwork range from a string. If the string represents an IPv4 address,
+     * performs a conversion.
+     * \param str a string in CIDR notation
+     * \return an IPv6 subnetwork address with subnet mask
+     * \throws std::invalid_exception if the address string is in invalid format
+     */
+    static ipv6_address parse_subnet_address_as_ipv6(const std::string& str);
 };

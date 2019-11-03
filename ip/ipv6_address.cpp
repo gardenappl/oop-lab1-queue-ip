@@ -11,6 +11,15 @@ ipv6_address::ipv6_address(uint16_t data[8])
 		this->data[i] = data[i];
 }
 
+ipv6_address::ipv6_address(const ipv4_address& address)
+{
+    for (size_t i = 0; i < 5; i++)
+        this->data[i] = 0;
+    this->data[5] = 0xffff;
+    for(size_t i = 0; i < 2; i++)
+        this->data[6 + i] = ((uint16_t)address.data[i * 2] << 8u) + address.data[i * 2 + 1];
+}
+
 void ipv6_address::print(std::ostream& os) const
 {
     std::ios_base::fmtflags prev_flags = os.flags();

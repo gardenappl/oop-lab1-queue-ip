@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <iostream>
 #include "ip_address.h"
+#include "ipv4_address.h"
 
 /*!
  * An IPv6 address, containing 128 bits of data and (optionally) a subnet mask.
@@ -19,6 +20,12 @@ struct ipv6_address : public ip_address
      * \param data the integers
      */
 	ipv6_address(uint16_t data[8]);
+
+    /*!
+     * Convert an IPv4 address into an IPv6 address.
+     * \param address the IPv4 address
+     */
+    ipv6_address(const ipv4_address& address);
 
     /*!
      * Create an all-zero IPv6 address.

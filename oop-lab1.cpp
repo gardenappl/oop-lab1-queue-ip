@@ -47,9 +47,8 @@ int main(int argc, char **argv) {
 	std::cout << address << std::endl;
 	std::cout << std::boolalpha << address.belongs_to_subnet(subnet_address) << std::endl;
 
-	ip_address* address2 = address_factory::parse_address("4.2.3.1");
-	std::cout << *address2 << std::endl;
-	delete address2;
+	ipv6_address address2 = address_factory::parse_address_as_ipv6("4.2.3.1");
+	std::cout << address2 << std::endl;
 
 	uint16_t data[8];
 	data[0] = 0;
@@ -63,9 +62,8 @@ int main(int argc, char **argv) {
 	ipv6_address address3(data);
 	std::cout << address3 << std::endl;
 
-	address2 = address_factory::parse_subnetwork_address("f431:0:abcd:1111:ffff:0000:1234:0001/25");
-	std::cout << *address2 << std::endl;
-	delete address2;
+	address3 = address_factory::parse_subnet_address_as_ipv6("f431:0:abcd:1111:ffff:0000:1234:0001/25");
+	std::cout << address3 << std::endl;
 
 	priority_queue_heap<ipv4_address> ip_queue;
 	ip_queue.add(ipv4_address(1, 2, 3, 4));
