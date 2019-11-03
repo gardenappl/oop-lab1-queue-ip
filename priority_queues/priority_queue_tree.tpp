@@ -23,7 +23,8 @@ priority_queue_tree<T>::priority_queue_tree(comparator<T>& sort_comparator)
 template<typename T>
 priority_queue_tree<T>::~priority_queue_tree()
 {
-    remove(root);
+    if(root)
+        remove(root);
 }
 
 template<typename T>

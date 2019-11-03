@@ -48,13 +48,29 @@ ipv6_address address_factory::parse_ipv6_address(const std::string& str, std::st
 ipv4_address address_factory::parse_address_as_ipv4(const std::string &str)
 {
     std::stringstream str_stream(str);
-    return parse_ipv4_address(str_stream);
+    ipv4_address address = parse_ipv4_address(str_stream);
+    char c = str_stream.peek();
+    if(c != EOF)
+    {
+        std::string s("Unexpected character: ");
+        s += c;
+        throw std::invalid_argument(s);
+    }
+    return address;
 }
 
 ipv6_address address_factory::parse_address_as_ipv6(const std::string &str)
 {
     std::stringstream str_stream(str);
-    return parse_ipv6_address(str, str_stream);
+    ipv6_address address = parse_ipv4_address(str_stream);
+    char c = str_stream.peek();
+    if(c != EOF)
+    {
+        std::string s("Unexpected character: ");
+        s += c;
+        throw std::invalid_argument(s);
+    }
+    return address;
 }
 
 ipv4_address address_factory::parse_subnet_address_as_ipv4(const std::string& str)
@@ -99,4 +115,22 @@ ipv6_address address_factory::local_ipv6_from_mac_auto(const mac_address &mac)
     //flip the "universal/local" bit of the EUI-64
     address_data[4] ^= 1u << 9;
     return ipv6_address(address_data);
+}
+
+mac_address address_factory::parse_mac_address(const std::string &str)
+{
+    std::stringstream str_stream(str);
+    mac_address address;
+    for (int i = 0; i < 6; i++)
+    {
+        unsigned int temp; //I can't read into uint8_t because that gets interpreted as char
+        str_stream >> std::hex >> temp;
+        if (temp > std::numeric_limits<uint8_t>::max())
+            throw std::invalid_argument("Value can't be more than ff.");
+        address.data[i] = temp;
+
+        if (i != 5 && str_stream.get() != '-')
+            throw std::invalid_argument("Expected -");
+    }
+    return address;
 }

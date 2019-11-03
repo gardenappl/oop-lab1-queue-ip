@@ -66,8 +66,9 @@ void ipv6_address::print(std::ostream& os) const
 bool ipv6_address::belongs_to_subnet(const ipv6_address& subnet_address) const
 {
 	size_t i = 0;
-	for (; (i + 1) * 32 <= 128 - subnet_address.subnet_bits; i++)
+	for (; (i + 1) * 16 <= 128 - subnet_address.subnet_bits; i++)
 	{
+	    std::cout << "compare " << std::hex << data[i] << " and " << std::hex << subnet_address.data[i] << std::endl;
 		if (data[i] != subnet_address.data[i])
 			return false;
 	}

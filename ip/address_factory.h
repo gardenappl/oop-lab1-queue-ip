@@ -57,4 +57,12 @@ public:
      * \throws std::invalid_exception if the address string is in invalid format
      */
     static ipv6_address parse_subnet_address_as_ipv6(const std::string& str);
+
+    /*!
+     * Parses a MAC address from a string.
+     * \param str a string in standard notation
+     * \return a MAC address.
+     * \throws std::invalid_exception if the address string is in invalid format
+     */
+    static mac_address parse_mac_address(const std::string& str);
 };
