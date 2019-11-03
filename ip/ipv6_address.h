@@ -35,12 +35,12 @@ struct ipv6_address : public ip_address
 	bool operator<(const ipv6_address& address2) const;
 	/*!
 	 * Prints the IPv6 address in the canonical format.
-	 * @param os the output stream
+	 * \param os the output stream
 	 */
 	void print(std::ostream& os) const override;
     /*!
      * Check if the address belongs to a subnetwork.
-     * @param subnet_address the subnetwork address, including a subnet mask
+     * \param subnet_address the subnetwork address, including a subnet mask
      * \return true if this address belongs to the subnetwork, false otherwise
      */
 	bool belongs_to_subnet(const ipv6_address& subnet_address) const;

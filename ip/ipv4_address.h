@@ -10,7 +10,7 @@
 struct ipv4_address : public ip_address
 {
     /*!
-     * The 32 its of the address, represented as 4 bytes.
+     * The 32 bits of the address, represented as 4 bytes.
      */
 	std::uint8_t data[4];
 
@@ -28,7 +28,7 @@ struct ipv4_address : public ip_address
 	bool operator<(const ipv4_address& address2) const;
     /*!
      * Check if the address belongs to a subnetwork.
-     * @param subnet_address the subnetwork address, including a subnet mask
+     * \param subnet_address the subnetwork address, including a subnet mask
      * \return true if this address belongs to the subnetwork, false otherwise
      */
 	bool belongs_to_subnet(const ipv4_address& subnet_address) const;

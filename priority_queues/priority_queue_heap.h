@@ -8,7 +8,6 @@
 
 /*!
  * A priority queue implemented using a min-heap.
- * @sa priority_queue
  */
 template<typename T>
 class priority_queue_heap : public priority_queue<T>

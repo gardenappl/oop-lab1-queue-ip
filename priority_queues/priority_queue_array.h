@@ -31,8 +31,8 @@ public:
 	~priority_queue_array() = default;
     /*!
      * \copydoc priority_queue::add(const T& element)
-     * \details The array-based implementation of this function works in O(1) time,
-     * unless the container needs to be resized, which is an O(n) operation.
+     * \details The array-based implementation of this function works in O(n) time,
+     * possibly resizing the array and invalidating pointers.
      */
 	void add(const T& element) override;
     /*!
