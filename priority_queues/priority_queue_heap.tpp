@@ -76,6 +76,9 @@ T priority_queue_heap<T>::pop()
 {
 	if (data.get_size() == 0)
 		throw std::logic_error("Tried to pop empty stack.");
+	else if(data.get_size() == 1)
+	    return data.pop_back();
+
 	T root = data[0];
 	//Replace root with the last element in heap
 	data[0] = data.pop_back();
