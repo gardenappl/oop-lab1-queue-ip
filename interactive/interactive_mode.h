@@ -11,6 +11,11 @@ private:
     std::unique_ptr<priority_queue<ipv6_address>> queue;
 
 public:
+    /*!
+     * Enter interactive mode.
+     * \param out a text output stream for interactions
+     * \param in a text input stream for interactions
+     */
     void run(std::ostream& out, std::istream& in);
 
 private:
