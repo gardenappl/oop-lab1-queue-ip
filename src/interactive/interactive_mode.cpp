@@ -1,4 +1,4 @@
-#include "interactive_mode.h"
+#include "interactive/interactive_mode.h"
 
 #include <string>
 #include "ip/mac_address.h"
@@ -18,44 +18,37 @@ void interactive_mode::run(std::ostream &out, std::istream &in)
     {
         out << "> ";
         in >> input;
-        if(input == "exit")
-            break;
-        else if(input == "help")
-            print_help(out);
-        else if(input == "create-queue")
-            create_queue_command(out, in);
-        else if(input == "peek")
+        try
         {
-            try
+            if (input == "exit")
+                break;
+            else if (input == "help")
+                print_help(out);
+            else if (input == "create-queue")
+                create_queue_command(out, in);
+            else if (input == "peek")
             {
                 ipv6_address element = queue->peek();
                 out << "Highest-priority element: " << element << std::endl;
             }
-            catch(const std::out_of_range& e)
-            {
-                out << "\nError: " << e.what() << std::endl;
-            }
-        }
-        else if(input == "pop")
-        {
-            try
+            else if (input == "pop")
             {
                 ipv6_address element = queue->pop();
                 out << "Popped element " << element << std::endl;
             }
-            catch(const std::out_of_range& e)
-            {
-                out << "\nError: " << e.what() << std::endl;
-            }
+            else if (input == "print")
+                out << *queue << std::endl;
+            else if (input == "push")
+                push_command(out, in);
+            else if (input == "ipv6-from-mac")
+                ipv6_from_mac_command(out, in);
+            else if (input == "check-subnet")
+                check_subnet_command(out, in);
         }
-        else if(input == "print")
-            out << *queue << std::endl;
-        else if(input == "push")
-            push_command(out, in);
-        else if(input == "ipv6-from-mac")
-            ipv6_from_mac_command(out, in);
-        else if(input == "check-subnet")
-            check_subnet_command(out, in);
+        catch(const std::exception& e)
+        {
+            out << "\nError: " << e.what() << std::endl;
+        }
     }
 }
 

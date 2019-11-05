@@ -1,6 +1,6 @@
-#include "address_factory.h"
-#include "ipv4_address.h"
-#include "ipv6_address.h"
+#include "ip/address_factory.h"
+#include "ip/ipv4_address.h"
+#include "ip/ipv6_address.h"
 #include <stdexcept>
 #include <sstream>
 #include <limits>
