@@ -55,8 +55,8 @@ size_t vector<T>::push_back(const T& element)
 template<typename T>
 T vector<T>::pop_back()
 {
-    if(size == 0)
-        throw std::out_of_range("Tried to pop_back empty vector");
+	if(size == 0)
+		throw std::out_of_range("Tried to pop_back empty vector");
 	T element = data[size - 1];
 	size--;
 	resize_if_needed();
@@ -66,24 +66,24 @@ T vector<T>::pop_back()
 template<typename T>
 T& vector<T>::operator [](std::size_t index) const
 {
-    if(index >= size)
-        throw std::out_of_range("Index out of range");
+	if(index >= size)
+		throw std::out_of_range("Index out of range");
 	return data[index];
 }
 
 template<typename T>
 std::ostream& operator<<(std::ostream& os, vector<T> vec)
 {
-    if(vec.get_size() == 0) {
-        os << "<empty>";
-        return os;
-    }
+	if(vec.get_size() == 0) {
+		os << "<empty>";
+		return os;
+	}
 
-    os << "{ " << vec[0].element;
+	os << "{ " << vec[0].element;
 
-    for(int i = 1; i < vec.get_size(); i++) {
-        os << ", " << vec[i].element;
-    }
-    os << " }";
-    return os;
+	for(int i = 1; i < vec.get_size(); i++) {
+		os << ", " << vec[i].element;
+	}
+	os << " }";
+	return os;
 }

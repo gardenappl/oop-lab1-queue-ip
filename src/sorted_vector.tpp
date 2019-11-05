@@ -13,7 +13,7 @@ sorted_vector<T>::sorted_vector(comparator<T> comparator)
 template<typename T>
 size_t sorted_vector<T>::insert(const T& element)
 {
-    data_vector.push_back(element);
+	data_vector.push_back(element);
 	size_t i = data_vector.get_size() - 1;
 	for (; i > 0; i--)
 	{

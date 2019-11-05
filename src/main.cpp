@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 	std::default_random_engine rng;
 	std::uniform_real_distribution<float> dist(50.f, 1000.f);
 
-	const int count = 10;
+	const int count = 10000;
 	random_floats.reserve(count);
 	for(size_t i = 0; i < count; i++)
 		random_floats.push_back(dist(rng));

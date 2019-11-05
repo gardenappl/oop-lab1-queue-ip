@@ -2,7 +2,7 @@
 
 template<typename T>
 priority_queue_array<T>::priority_queue_array(comparator<T>& sort_comparator)
-    : priority_queue<T>(sort_comparator), sorted_data(sorted_vector<T>(sort_comparator))
+	: priority_queue<T>(sort_comparator), sorted_data(sorted_vector<T>(sort_comparator))
 {}
 
 

@@ -2,7 +2,7 @@
 
 template<typename T>
 priority_queue_list<T>::priority_queue_list(comparator<T>& sort_comparator)
-    : priority_queue<T>(sort_comparator)
+	: priority_queue<T>(sort_comparator)
 {}
 
 template<typename T>
@@ -48,8 +48,8 @@ T priority_queue_list<T>::pop() {
 
 template<typename T>
 const T& priority_queue_list<T>::peek() const {
-    if(!root)
-        throw std::out_of_range("Tried to peek into empty stack");
+	if(!root)
+		throw std::out_of_range("Tried to peek into empty stack");
 	return root->value;
 }
 

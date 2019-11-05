@@ -3,7 +3,7 @@
 
 template<typename T>
 priority_queue_heap<T>::priority_queue_heap(comparator<T>& sort_comparator)
-    : priority_queue<T>(sort_comparator), data()
+	: priority_queue<T>(sort_comparator), data()
 {}
 
 template<typename T>
@@ -77,7 +77,7 @@ T priority_queue_heap<T>::pop()
 	if (data.get_size() == 0)
 		throw std::logic_error("Tried to pop empty stack.");
 	else if(data.get_size() == 1)
-	    return data.pop_back();
+		return data.pop_back();
 
 	T root = data[0];
 	//Replace root with the last element in heap
@@ -91,9 +91,9 @@ T priority_queue_heap<T>::pop()
 		size_t right_index = get_right_child_index(current_index);
 		size_t max_index = current_index;
 		if (left_index < data.get_size() && this->sort_comparator(data[max_index], data[left_index]))
-            max_index = left_index;
+			max_index = left_index;
 		if (right_index < data.get_size() && this->sort_comparator(data[max_index], data[right_index]))
-            max_index = right_index;
+			max_index = right_index;
 
 		if (max_index == current_index)
 			break;
