@@ -3,6 +3,7 @@
 #include <cassert>
 #include <string>
 #include <memory>
+#include <random>
 #include "priority_queues/priority_queue.h"
 #include "priority_queues/priority_queue_array.h"
 #include "priority_queues/priority_queue_tree.h"
@@ -38,7 +39,6 @@ int main(int argc, char **argv)
 	string_queues[2] = std::make_unique<priority_queue_list<std::string>>();
 	string_queues[3] = std::make_unique<priority_queue_tree<std::string>>();
 
-	int i = 0;
 	for(auto& queue : string_queues)
 	{
 		queue->add("Hell");
@@ -50,6 +50,30 @@ int main(int argc, char **argv)
 		assert(queue->pop() == "Hell");
 		//std::cout << "tested" << std::endl;
 	}
+
+	std::unique_ptr<priority_queue<float>> float_queues[4];
+	float_queues[0] = std::make_unique<priority_queue_heap<float>>();
+	float_queues[1] = std::make_unique<priority_queue_array<float>>();
+	float_queues[2] = std::make_unique<priority_queue_list<float>>();
+	float_queues[3] = std::make_unique<priority_queue_tree<float>>();
+
+	std::vector<float> random_floats;
+	std::default_random_engine rng;
+	std::uniform_real_distribution<float> dist(50.f, 1000.f);
+
+	const int count = 10;
+	random_floats.reserve(count);
+	for(size_t i = 0; i < count; i++)
+		random_floats.push_back(dist(rng));
+	float max = *std::max_element(random_floats.begin(), random_floats.end());
+
+	for(auto& queue : float_queues)
+	{
+		for(size_t i = 0; i < random_floats.size(); i++)
+			queue->add(random_floats[i]);
+		assert(queue->pop() == max);
+	}
+
 
 
 	std::cout << "Tests passed.\n";
