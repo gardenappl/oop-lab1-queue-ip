@@ -62,13 +62,55 @@ ipv6_address address_factory::parse_ipv6_address(const std::string& str, std::st
 	{
 		std::cout << "Parsing IPv6...\n";
 		ipv6_address address;
-		for (int i = 0; i < 8; i++)
-		{
-			str_stream >> std::hex >> address.data[i];
 
-			if (i != 7 && str_stream.get() != ':')
+		int parsed_num = 0;
+		bool used_zero_substitution = false;
+
+		for (; parsed_num < 8; parsed_num++)
+		{
+			if(str_stream.peek() == ':')
+			{
+				if(parsed_num == 0)
+					str_stream.ignore();
+				if (str_stream.get() != ':')
+					throw std::invalid_argument("Expected ::");
+				used_zero_substitution = true;
+				break;
+			}
+			str_stream >> std::hex >> address.data[parsed_num];
+
+			if (parsed_num != 7 && str_stream.get() != ':')
 				throw std::invalid_argument("Expected :");
 		}
+
+		if(used_zero_substitution)
+		{
+			uint16_t end_bits[7];
+
+			int j = 0;
+			for(; j < 8 - parsed_num - 1; j++)
+			{
+				char c = str_stream.peek();
+				if(!isdigit(c) && !(c >= 'a' && c <= 'f'))
+					break;
+				str_stream >> std::hex >> end_bits[j];
+
+				if (str_stream.get() != ':')
+				{
+					j++;
+					break;
+				}
+			}
+			for(int i = parsed_num; i < 8 - j; i++)
+			{
+				address.data[i] = 0;
+			}
+			for(int i = 0; i < j; i++)
+			{
+				address.data[8 - j + i] = end_bits[i];
+			}
+		}
+
 		return address;
 	}
 }
