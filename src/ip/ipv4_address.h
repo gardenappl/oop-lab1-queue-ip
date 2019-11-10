@@ -25,6 +25,11 @@ struct ipv4_address : public ip_address
 	 */
 	ipv4_address() = default;
 
+	/*!
+	 * Compare this address to another IPv4 address.
+	 * \param address2 another IPv4 address
+	 * \return true if this address is "less" than address2 (in lexicographical order)
+	 */
 	bool operator<(const ipv4_address& address2) const;
 	/*!
 	 * Check if the address belongs to a subnetwork.
@@ -33,5 +38,10 @@ struct ipv4_address : public ip_address
 	 */
 	bool belongs_to_subnet(const ipv4_address& subnet_address) const;
 private:
+	/*!
+	 * Prints a text representation of the IPv4 address into the output stream.
+	 * This method is invoked by the << operator.
+	 * \param os the text output stream
+	 */
 	void print(std::ostream& os) const override;
 };

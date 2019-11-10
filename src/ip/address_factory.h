@@ -9,7 +9,7 @@
 #include <sstream>
 
 /*!
- * A static class for creating network addreses of various types.
+ * A static class for creating network addresses of various types.
  */
 class address_factory
 {

@@ -1,5 +1,4 @@
-#ifndef OOP_LAB1_MAC_ADDRESS_H
-#define OOP_LAB1_MAC_ADDRESS_H
+#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -21,7 +20,10 @@ struct mac_address {
 	mac_address() = default;
 };
 
+/*!
+ * Prints a text representation of the MAC address into the output stream.
+ * \param os the text output stream
+ * \param address the MAC address
+ * \return the output stream after the MAC address has been printed
+ */
 std::ostream& operator<<(std::ostream& os, const mac_address& address);
-
-
-#endif //OOP_LAB1_MAC_ADDRESS_H

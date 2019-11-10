@@ -1,8 +1,8 @@
-#ifndef PRIORITY_QUEUES_PRIORITY_QUEUE_H_
-#define PRIORITY_QUEUES_PRIORITY_QUEUE_H_
+#pragma once
 
 #include "algorithms.h"
 #include <iostream>
+#include <functional>
 
 /*!
  * A priority queue is a container adaptor that provides constant time lookup of the largest
@@ -12,6 +12,9 @@
 template<typename T>
 struct priority_queue {
 protected:
+	/*!
+	 * The comparison function to use for determining the priorities of elements.
+	 */
 	comparator<T> sort_comparator;
 
 public:
@@ -46,9 +49,22 @@ public:
 	virtual const T& peek() const = 0;
 
 private:
+	/*!
+	 * Prints all the elements in the queue into the output stream in the format "{ element1, element2, ... }"
+	 * The first element to be printed is guaranteed to be the top-priority element.
+	 * If the queue is empty, prints "<empty>"
+	 * This method should be invoked via the << operator.
+	 * \param os the output stream
+	 */
 	virtual void print(std::ostream& os) const = 0;
 
 
+	/*!
+	 * Invokes the priority_queue::print(std::ostream& os) method.
+	 * \param os the output stream
+	 * \param queue the queue to be printed
+	 * \return the output stream after the queue has been printed
+	 */
 	friend std::ostream& operator<<(std::ostream& os, const priority_queue<T>& queue) {
 		queue.print(os);
 		return os;
@@ -64,5 +80,3 @@ template<typename T>
 priority_queue<T>::priority_queue(comparator<T>& sort_comparator)
 	: sort_comparator(sort_comparator)
 {}
-
-#endif /* PRIORITY_QUEUES_PRIORITY_QUEUE_H_ */

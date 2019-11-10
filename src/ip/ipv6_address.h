@@ -32,6 +32,11 @@ struct ipv6_address : public ip_address
 	 */
 	ipv6_address() = default;
 
+	/*!
+	 * Compare this address to another IPv6 address.
+	 * \param address2 another IPv6 address
+	 * \return true if this address is "less" than address2 (in lexicographical order)
+	 */
 	bool operator<(const ipv6_address& address2) const;
 	/*!
 	 * Prints the IPv6 address in the canonical format.

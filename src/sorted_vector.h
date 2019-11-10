@@ -7,7 +7,13 @@ template<typename T>
 struct sorted_vector
 {
 private:
+	/*!
+	 * The underlying data vector.
+	 */
 	vector<T> data_vector;
+	/*!
+	 * The comparison function to use for sorting the array.
+	 */
 	comparator<T> sort_comparator;
 
 public:

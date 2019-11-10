@@ -105,10 +105,15 @@ void interactive_mode::create_queue_command(std::ostream &out, std::istream &in)
 
 void interactive_mode::push_command(std::ostream &out, std::istream &in)
 {
-	out << "Enter address: ";
+	out << "Enter address (or enter \"r\" to generate a random address): ";
 	std::string input;
 	in >> input;
-	ipv6_address address = address_factory::parse_address_as_ipv6(input);
+	ipv6_address address;
+	if(input == "r")
+		address = address_factory::random_ipv6_address();
+	else
+		address = address_factory::parse_address_as_ipv6(input);
+	out << "Pushed " << address << " onto the stack.\n";
 	queue->add(address);
 }
 

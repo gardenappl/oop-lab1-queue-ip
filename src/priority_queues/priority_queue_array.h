@@ -14,8 +14,10 @@
 template<typename T>
 class priority_queue_array : public priority_queue<T>
 {
-	//A sorted vector might be a useful class to have on its own,
-	//so we implement it separately.
+	/*!
+	 * The data that's stored in the array, automatically sorted as new elements are added into it.
+	 * \sa sorted_vector<T>
+	 */
 	sorted_vector<T> sorted_data;
 
 public:
@@ -46,6 +48,13 @@ public:
 	const T& peek() const override;
 
 private:
+	/*!
+	 * Prints all the elements in the queue into the output stream in the format "{ element1, element2, ... }"
+	 * The order of printed elements is based on their priority, starting from the highest priority.
+	 * If the queue is empty, prints "<empty>"
+	 * This method should be invoked by the << operator.
+	 * \param os the output stream
+	 */
 	void print(std::ostream& os) const override;
 };
 

@@ -1,8 +1,10 @@
 #pragma once
 
+#include <functional>
+
 template<typename T>
 sorted_vector<T>::sorted_vector()
-	: sort_comparator(standard_comparator<T>)
+	: sort_comparator(std::less<T>())
 {}
 
 template<typename T>

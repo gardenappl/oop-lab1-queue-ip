@@ -90,7 +90,7 @@ ipv4_address address_factory::parse_address_as_ipv4(const std::string &str)
 ipv6_address address_factory::parse_address_as_ipv6(const std::string &str)
 {
 	std::stringstream str_stream(str);
-	ipv6_address address = parse_ipv4_address(str_stream);
+	ipv6_address address = parse_ipv6_address(str, str_stream);
 	char c = str_stream.peek();
 	if(c != EOF)
 	{
