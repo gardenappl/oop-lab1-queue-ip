@@ -11,7 +11,12 @@
 #include "priority_queues/priority_queue_list.h"
 #include "interactive/interactive_mode.h"
 
-int main(int argc, char **argv)
+/*!
+ * Run tests for priority queues.
+ * \return true if the tests were passed succesfully
+ * \details Will halt the program if the tests were not passed succesfully.
+ */
+bool run_tests()
 {
 	std::unique_ptr<priority_queue<int>> int_queues[4];
 	int_queues[0] = std::make_unique<priority_queue_array<int>>();
@@ -72,10 +77,13 @@ int main(int argc, char **argv)
 			queue->add(random_floats[i]);
 		assert(queue->pop() == max);
 	}
+	return true;
+}
 
-
-
-	std::cout << "Tests passed.\n";
+int main(int argc, char **argv)
+{
+	if(run_tests())
+		std::cout << "Tests passed.\n";
 
 	auto interactive = std::make_unique<interactive_mode>();
 	interactive->run(std::cout, std::cin);
