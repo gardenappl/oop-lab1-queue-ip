@@ -1,6 +1,6 @@
 #pragma once
 
-#include "algorithms.h"
+#include "comparator.h"
 #include "priority_queue_tree.h"
 #include <stdexcept>
 

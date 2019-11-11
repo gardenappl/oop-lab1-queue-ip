@@ -1,8 +1,8 @@
 #pragma once
 
 #include "priority_queue.h"
-#include "../algorithms.h"
-#include "../vector.h"
+#include "comparator.h"
+#include <vector>
 #include <algorithm>
 
 /*!
@@ -18,7 +18,7 @@ private:
 	 * \sa get_left_child_index(size_t index) const;
 	 * \sa get_right_child_index(size_t index) const;
 	 */
-	vector<T> data;
+	std::vector<T> data;
 
 public:
 	/*!

@@ -43,12 +43,11 @@ int main(int argc, char **argv)
 	{
 		queue->add("Hell");
 		queue->add("Hello");
-		//std::cout << *queue << std::endl;
+		queue->add("Hella");
 		assert(queue->pop() == "Hello");
 		queue->add("Zzzz");
 		assert(queue->pop() == "Zzzz");
-		assert(queue->pop() == "Hell");
-		//std::cout << "tested" << std::endl;
+		assert(queue->pop() == "Hella");
 	}
 
 	std::unique_ptr<priority_queue<float>> float_queues[4];
@@ -61,7 +60,7 @@ int main(int argc, char **argv)
 	std::default_random_engine rng;
 	std::uniform_real_distribution<float> dist(50.f, 1000.f);
 
-	const int count = 10000;
+	const int count = 1000;
 	random_floats.reserve(count);
 	for(size_t i = 0; i < count; i++)
 		random_floats.push_back(dist(rng));

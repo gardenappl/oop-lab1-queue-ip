@@ -1,7 +1,7 @@
 #pragma once
 
-#include "algorithms.h"
-#include "vector.h"
+#include "comparator.h"
+#include <vector>
 
 template<typename T>
 struct sorted_vector
@@ -10,7 +10,7 @@ private:
 	/*!
 	 * The underlying data vector.
 	 */
-	vector<T> data_vector;
+	std::vector<T> data_vector;
 	/*!
 	 * The comparison function to use for sorting the array.
 	 */

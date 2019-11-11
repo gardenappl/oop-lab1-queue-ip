@@ -50,6 +50,9 @@ void interactive_mode::run(std::ostream &out, std::istream &in)
 				random_ipv4_command(out, in);
 			else if (input == "random-mac")
 				random_mac_command(out, in);
+			else
+				std::cout << "Unknown command: " << input <<
+						"\nUse \"help\" for a list of available commands" << std::endl;
 		}
 		catch(const std::exception& e)
 		{

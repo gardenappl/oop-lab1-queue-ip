@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "algorithms.h"
+#include "comparator.h"
 #include "sorted_vector.h"
 #include "priority_queue.h"
 

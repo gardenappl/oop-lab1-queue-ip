@@ -3,7 +3,7 @@
 
 #include <memory>
 #include "priority_queue.h"
-#include "algorithms.h"
+#include "comparator.h"
 
 /*!
  * A struct which represents a node of a binary tree.

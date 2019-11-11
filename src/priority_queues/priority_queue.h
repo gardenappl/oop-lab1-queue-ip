@@ -1,6 +1,6 @@
 #pragma once
 
-#include "algorithms.h"
+#include "comparator.h"
 #include <iostream>
 #include <functional>
 
