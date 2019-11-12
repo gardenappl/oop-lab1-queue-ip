@@ -3,6 +3,7 @@
 #include <string>
 #include "ip/mac_address.h"
 #include "ip/address_factory.h"
+#include "ip/ipv6_address_subnet.h"
 #include "priority_queues/priority_queue_array.h"
 #include "priority_queues/priority_queue_heap.h"
 #include "priority_queues/priority_queue_list.h"
@@ -159,9 +160,11 @@ void interactive_mode::check_subnet_command(std::ostream &out, std::istream &in)
 	ipv6_address address = address_factory::parse_address_as_ipv6(input);
 	out << "Enter subnet address with subnet mask: ";
 	in >> input;
-	ipv6_address subnet_address = address_factory::parse_subnet_address_as_ipv6(input);
-	if(address.belongs_to_subnet(subnet_address))
+	ipv6_address_subnet subnet_address = address_factory::parse_subnet_address_as_ipv6(input);
+	if(subnet_address.belongs_to_subnet(address))
+	{
 		out << address << " belongs to " << subnet_address << '.' << std::endl;
+	}
 	else
 		out << address << " does not belong to " << subnet_address << '.' << std::endl;
 }

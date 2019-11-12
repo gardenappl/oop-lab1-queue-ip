@@ -5,22 +5,23 @@
 #include <limits>
 
 
-ipv6_address::ipv6_address(uint16_t data[8])
+ipv6_address::ipv6_address(uint8_t data[16])
 {
-	for (size_t i = 0; i < 8; i++)
+	for (size_t i = 0; i < 16; i++)
 		this->data[i] = data[i];
 }
 
 ipv6_address::ipv6_address(const ipv4_address& address)
 {
-	for (size_t i = 0; i < 5; i++)
+	for (size_t i = 0; i < 10; i++)
 		this->data[i] = 0;
-	this->data[5] = 0xffff;
-	for(size_t i = 0; i < 2; i++)
-		this->data[6 + i] = ((uint16_t)address.data[i * 2] << 8u) + address.data[i * 2 + 1];
+	this->data[10] = 0xffu;
+	this->data[11] = 0xffu;
+	for(size_t i = 0; i < 4; i++)
+		this->data[12 + i] = address.data[i];
 }
 
-void ipv6_address::print(std::ostream& os) const
+std::ostream& operator<<(std::ostream& os, const ipv6_address& address)
 {
 	std::ios_base::fmtflags prev_flags = os.flags();
 
@@ -32,7 +33,7 @@ void ipv6_address::print(std::ostream& os) const
 	int current_zero_sequence_length = 0;
 	for(int i = 0; i < 8; i++)
 	{
-		if(data[i] == 0)
+		if(address.data[i * 2] == 0 && address.data[i * 2 + 1] == 0)
 		{
 			current_zero_sequence_length++;
 		}
@@ -65,32 +66,12 @@ void ipv6_address::print(std::ostream& os) const
 		if(i != 0 && !printing_zero_sequence)
 			os << ':';
 		printing_zero_sequence = false;
-		os << std::hex << data[i];
+		if(address.data[2 * i] != 0)
+			os << std::hex << (int16_t)address.data[2 * i];
+		os << std::hex << (int16_t)address.data[2 * i + 1];
 	}
-	os << std::dec;
-	if (subnet_bits != -1)
-		os << '/' << (int)subnet_bits;
-
 	os.flags(prev_flags);
-}
-
-bool ipv6_address::belongs_to_subnet(const ipv6_address& subnet_address) const
-{
-	size_t i = 0;
-	for (; (i + 1) * 16 <= 128 - subnet_address.subnet_bits; i++)
-	{
-		std::cout << "compare " << std::hex << data[i] << " and " << std::hex << subnet_address.data[i] << std::endl;
-		if (data[i] != subnet_address.data[i])
-			return false;
-	}
-	//partially compare
-	int remaining_bits = subnet_address.subnet_bits % 32;
-	if (remaining_bits != 0)
-	{
-		if (data[i] >> remaining_bits != subnet_address.data[i] >> remaining_bits)
-			return false;
-	}
-	return true;
+	return os;
 }
 
 bool ipv6_address::operator<(const ipv6_address &address2) const

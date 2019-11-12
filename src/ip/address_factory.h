@@ -5,6 +5,8 @@
 #include "ipv6_address.h"
 #include "mac_address.h"
 #include "ipv4_address.h"
+#include "ipv4_address_subnet.h"
+#include "ipv6_address_subnet.h"
 #include <string>
 #include <sstream>
 
@@ -66,7 +68,7 @@ public:
 	 * \return an IPv4 subnetwork address with subnet mask
 	 * \throws std::invalid_exception if the address string is in invalid format
 	 */
-	static ipv4_address parse_subnet_address_as_ipv4(const std::string& str);
+	static ipv4_address_subnet parse_subnet_address_as_ipv4(const std::string& str);
 
 	/*!
 	 * Parses an IPv6 subnetwork range from a string. If the string represents an IPv4 address,
@@ -75,7 +77,7 @@ public:
 	 * \return an IPv6 subnetwork address with subnet mask
 	 * \throws std::invalid_exception if the address string is in invalid format
 	 */
-	static ipv6_address parse_subnet_address_as_ipv6(const std::string& str);
+	static ipv6_address_subnet parse_subnet_address_as_ipv6(const std::string& str);
 
 	/*!
 	 * Parses a MAC address from a string.

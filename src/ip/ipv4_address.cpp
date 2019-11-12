@@ -1,4 +1,5 @@
 #include "ip/ipv4_address.h"
+#include "ipv4_address_subnet.h"
 
 #include <cstdint>
 #include <iostream>
@@ -13,31 +14,12 @@ ipv4_address::ipv4_address(uint8_t num1, uint8_t num2, uint8_t num3,
 	data[3] = num4;
 }
 
-void ipv4_address::print(std::ostream& os) const
+std::ostream& operator<<(std::ostream& os, const ipv4_address& address)
 {
-	os << (int)data[0] << '.' << (int)data[1] << '.' << (int)data[2] << '.' << (int)data[3];
-	if (subnet_bits != -1)
-		os << '/' << (int)subnet_bits;
+	os << (int16_t)address.data[0] << '.' << (int16_t)address.data[1] << '.'
+			<< (int16_t)address.data[2] << '.' << (int16_t)address.data[3];
+	return os;
 }
-
-bool ipv4_address::belongs_to_subnet(const ipv4_address& subnet_address) const
-{
-	size_t i = 0;
-	for (; (i + 1) * 8 <= 32 - subnet_address.subnet_bits; i++)
-	{
-		if (data[i] != subnet_address.data[i])
-			return false;
-	}
-	//partially compare
-	int remaining_bits = subnet_address.subnet_bits % 8;
-	if (remaining_bits != 0)
-	{
-		if (data[i] >> remaining_bits != subnet_address.data[i] >> remaining_bits)
-			return false;
-	}
-	return true;
-}
-
 bool ipv4_address::operator<(const ipv4_address &address2) const
 {
     for(size_t i = 0; i < 4; i++)

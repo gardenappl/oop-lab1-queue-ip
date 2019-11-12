@@ -8,4 +8,4 @@ file(GLOB SOURCES
 		"${PROJECT_SOURCE_DIR}/**/*.cpp"
 		"${PROJECT_SOURCE_DIR}/main.cpp")
 
-add_executable(oop-lab1 ${SOURCES})
+add_executable(oop-lab1 ${SOURCES} src/ip/ipv4_address_subnet.cpp src/ip/ipv4_address_subnet.h src/ip/ipv6_address_subnet.cpp src/ip/ipv6_address_subnet.h src/ip/ipv4_address.fwd.h src/ip/ipv6_address.fwd.h src/ip/ipv4_address_subnet.fwd.h src/ip/ipv6_address_subnet.fwd.h)
