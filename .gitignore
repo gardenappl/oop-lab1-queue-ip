@@ -5,6 +5,8 @@ out/
 .vs
 .idea
 
+*.cbp
+
 .cproject
 .project
 .settings/

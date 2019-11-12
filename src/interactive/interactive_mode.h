@@ -74,4 +74,12 @@ private:
 	 * \param in the input text stream
 	 */
 	void random_mac_command(std::ostream& out, std::istream& in);
+	/*!
+	 * Asks the user whether or not to push an IPv6 address onto the current queue
+	 * \param address an IPv6 address
+	 * \param out the output text stream
+	 * \param in the input text stream
+	 * \return true if the address was pushed
+	 */
+	bool ask_to_push(const ipv6_address& address, std::ostream& out, std::istream& in);
 };

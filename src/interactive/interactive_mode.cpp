@@ -11,7 +11,8 @@
 void interactive_mode::run(std::ostream &out, std::istream &in)
 {
 	out << "Welcome to the interactive mode!\n";
-	queue = std::make_unique<priority_queue_tree<ipv6_address>>();
+	out << "You're currently working with a heap-based queue.\n";
+	queue = std::make_unique<priority_queue_heap<ipv6_address>>();
 	print_help(out);
 	std::string input;
 	while(true)
@@ -126,17 +127,23 @@ void interactive_mode::ipv6_from_mac_command(std::ostream &out, std::istream &in
 	std::string input;
 	in >> input;
 	mac_address address = address_factory::parse_mac_address(input);
-	out << "Autoconfigured local IPv6 address: " << address_factory::local_ipv6_from_mac_auto(address) << std::endl;
+	ipv6_address ip_address = address_factory::local_ipv6_from_mac_auto(address);
+	out << "Autoconfigured local IPv6 address: " << ip_address << std::endl;
+	ask_to_push(ip_address, out, in);
 }
 
 void interactive_mode::random_ipv6_command(std::ostream &out, std::istream &in)
 {
-	out << address_factory::random_ipv6_address() << std::endl;
+	ipv6_address address = address_factory::random_ipv6_address();
+	out << address << std::endl;
+	ask_to_push(address, out, in);
 }
 
 void interactive_mode::random_ipv4_command(std::ostream &out, std::istream &in)
 {
-	out << address_factory::random_ipv4_address() << std::endl;
+	ipv4_address address = address_factory::random_ipv4_address();
+	out << address << std::endl;
+	ask_to_push(address, out, in);
 }
 
 void interactive_mode::random_mac_command(std::ostream &out, std::istream &in)
@@ -157,4 +164,24 @@ void interactive_mode::check_subnet_command(std::ostream &out, std::istream &in)
 		out << address << " belongs to " << subnet_address << '.' << std::endl;
 	else
 		out << address << " does not belong to " << subnet_address << '.' << std::endl;
+}
+
+bool interactive_mode::ask_to_push(const ipv6_address &address, std::ostream &out, std::istream &in)
+{
+	out << "Push this address " << address << " onto the stack? (y or n)\n";
+	char c;
+	while(true)
+	{
+		in >> c;
+		if(c == 'y')
+		{
+			queue->add(address);
+			out << "Pushed " << address << " onto the stack.\n";
+			return true;
+		}
+		else if(c == 'n')
+		{
+			return false;
+		}
+	}
 }
